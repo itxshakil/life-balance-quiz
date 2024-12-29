@@ -61,6 +61,12 @@
             fill-opacity="0.6"
           />
         </svg>
+
+        <!-- Radar Chart Container -->
+        <div class="mt-6">
+          <canvas id="radarChart" ref="radarChartRef" class="mx-auto"></canvas>
+        </div>
+
         <div class="grid grid-cols-1 gap-4 mt-6">
           <div
             v-for="(score, category) in categoryScores"
@@ -114,7 +120,8 @@
 </template>
 
 <script lang="ts">
-import { ref, computed, onMounted } from "vue";
+import { ref, nextTick, computed, onMounted } from "vue";
+import Chart from "chart.js/auto";
  // Assume this is where your data is stored
  export const questions = [
   { id: "joy_level", question: "How often do you feel genuine joy or happiness in your daily life?", category: "joy" },
@@ -180,6 +187,62 @@ export const suggestions = {
 
 export const colors = ["#ffadad", "#ffd6a5", "#fdffb6", "#caffbf", "#9bf6ff", "#a0c4ff", "#bdb2ff", "#ffc6ff"];
 
+export const renderRadarChart = (val) => {
+  console.log(val, val.value);
+  document.addEventListener('DOMContentLoaded', ()=>{
+    console.log("Loaded");
+  });
+  console.log("Rendering")
+      const ctx = document.getElementById("radarChart") as HTMLCanvasElement;
+      console.log(ctx);
+
+  if (!ctx) {
+    console.error("Canvas element not found");
+    return;
+  }
+
+      if (!ctx) return;
+
+      console.log(ctx);
+      const data = {
+        labels: Object.keys(categoryScores.value),
+        datasets: [
+          {
+            label: "Life Balance Scores",
+            data: Object.values(categoryScores.value),
+            backgroundColor: "rgba(54, 162, 235, 0.2)",
+            borderColor: "rgba(54, 162, 235, 1)",
+            borderWidth: 1,
+          },
+        ],
+      };
+
+      // const data = {
+      //   labels: [1, 2,3,4,5,6,7,8],
+      //   datasets: [
+      //     {
+      //       label: "Life Balance Scores",
+      //       data: [100, 77,60,50,30,20,10,18],
+      //       backgroundColor: "rgba(54, 162, 235, 0.2)",
+      //       borderColor: "rgba(54, 162, 235, 1)",
+      //       borderWidth: 1,
+      //     },
+      //   ],
+      // };
+
+      // new Chart(ctx, {
+      //   type: "radar",
+      //   data,
+      //   options: {
+      //     scales: {
+      //       r: {
+      //         suggestedMin: 0,
+      //         suggestedMax: 5,
+      //       },
+      //     },
+      //   },
+      // });
+    };
 export default {
   name: "LifeBalanceQuiz",
   setup() {
@@ -188,8 +251,10 @@ export default {
     const showResults = ref(false);
     const answers = ref<Record<string, number>>({});
     const shuffledQuestions = ref([...questions].sort(() => Math.random() - 0.5));
+    let radarChartRef = null;
 
-    const handleAnswer = (answer: string) => {
+    console.log(radarChartRef);
+    const handleAnswer = async (answer: string) => {
       if (!answer) return;
       const currentQ = shuffledQuestions.value[currentQuestion.value];
       answers.value[currentQ.id] = parseInt(answer, 10);
@@ -199,6 +264,13 @@ export default {
         selectedAnswer.value = "";
       } else {
         showResults.value = true;
+        await nextTick();
+
+        radarChartRef =  ref<HTMLCanvasElement | null>(null);
+
+        console.log(radarChartRef);
+
+      renderRadarChart(radarChartRef);
       }
     };
 
