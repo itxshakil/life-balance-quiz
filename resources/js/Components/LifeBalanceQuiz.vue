@@ -8,16 +8,16 @@
     <main>
       <template v-if="!showResults">
         <div class="flex justify-center mb-6">
-          <svg class="progress-circle" viewBox="0 0 36 36" xmlns="http://www.w3.org/2000/svg">
-            <circle class="progress-bg" cx="18" cy="18" r="16"></circle>
+          <svg class="w-24 h-24" viewBox="0 0 36 36" xmlns="http://www.w3.org/2000/svg">
+            <circle class="fill-none stroke-gray-200 dark:stroke-gray-900 stroke-[4px]" cx="18" cy="18" r="16"></circle>
             <circle
-              class="progress"
+              class="progress fill-none stroke-blue-600 dark:stroke-blue-400 stroke-[4px] duration-200 ease-in-out -rotate-90"
               cx="18"
               cy="18"
               r="16"
               :stroke-dasharray="`${progress} 100`"
             ></circle>
-            <text x="18" y="20.5" class="progress-text dark:text-white">{{ Math.round(progress) }}%</text>
+            <text x="18" y="20.5" class="progress-text text-xs font-bold fill-gray-900 dark:fill-gray-200">{{ Math.round(progress) }}%</text>
           </svg>
         </div>
         <h2 class="text-xl font-semibold text-center text-gray-800 dark:text-gray-200">{{ shuffledQuestions[currentQuestion]?.question }}</h2>
@@ -26,8 +26,8 @@
             v-for="option in options"
             :key="option.value"
             :for="option.value"
-            class="cursor-pointer flex flex-1 items-center justify-center px-3 py-1 bg-gray-100 dark:bg-gray-900 dark:text-white border rounded-lg shadow-sm hover:bg-blue-100 dark:hover:bg-blue-700 transition-all duration-200"
-            :class="{ 'bg-blue-100 dark:bg-blue-700': selectedAnswer === option.value }"
+            class="cursor-pointer flex flex-1 items-center justify-center px-3 py-1 dark:text-white border rounded-lg shadow-sm hover:bg-blue-100 dark:hover:bg-blue-700 transition-all duration-200"
+            :class="selectedAnswer == option.value ? 'bg-blue-200 dark:bg-blue-600' : 'bg-gray-100 dark:bg-gray-900'"
           >
             <input
               type="radio"
@@ -64,9 +64,9 @@
           >
             <h3 class="text-xl font-semibold capitalize">{{ category }}</h3>
             <p class="text-lg mt-2">
-              Score: {{ (score / 5 * 100).toFixed(2) }}%
+              Score: {{ score }}%
             </p>
-            <template v-if="score / 5 * 100 >= 80">
+            <template v-if="score >= 80">
               <p class="text-green-600 dark:text-green-400 font-semibold mt-2">
                 🎉 You're thriving in {{ category }}!
               </p>
@@ -179,6 +179,9 @@ export const colors = ["#ffadad", "#ffd6a5", "#fdffb6", "#caffbf", "#9bf6ff", "#
 
 export default {
   name: "LifeBalanceQuiz",
+  components: {
+    PolarResultChart
+  },
   setup() {
     const currentQuestion = ref(0);
     const selectedAnswer = ref("");
@@ -207,7 +210,8 @@ export default {
           (sum, questionId) => sum + (answers.value[questionId] || 0),
           0
         );
-        scores[category] = total / categoryQuestions.length;
+        let score = total / categoryQuestions.length;
+        scores[category] = (score / 5 * 100).toFixed(2);
       });
       return scores;
     });
@@ -239,34 +243,15 @@ export default {
 </script>
 
 <style scoped>
-.progress-circle {
-  width: 100px;
-  height: 100px;
-}
-.progress-bg {
-  fill: none;
-  stroke: #e5e7eb;
-  stroke-width: 3.8;
-}
+
 .progress {
-  fill: none;
-  stroke: #3b82f6;
-  stroke-width: 3.8;
   stroke-linecap: round;
-  transform: rotate(-90deg);
   transform-origin: center;
-  transition: stroke-dasharray 0.3s;
+  transition: stroke-dasharray 0.5s;
 }
+
 .progress-text {
-  font-size: 0.8rem;
   text-anchor: middle;
-  fill: #374151;
-  font-weight: bold;
 }
-.dark .progress-bg {
-  stroke: #374151;
-}
-.dark .progress-text {
-  fill: #e5e7eb;
-}
+
 </style>
