@@ -1,6 +1,6 @@
 <?php
 
 use App\Http\Controllers\Api\QuizResultController;
-use Illuminate\Routing\Route;
+use Illuminate\Support\Facades\Route;
 
 Route::post('/quiz-results', [QuizResultController::class, 'store']);

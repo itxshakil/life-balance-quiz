@@ -1,7 +1,6 @@
 <template>
     <div class="landing-page bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100">
-      <Head title="Welcome" />
-
+    
       <header class="text-center py-10 bg-blue-600 dark:bg-blue-800 text-white">
         <h1 class="text-4xl font-bold">🌟 Unlock Your Best Life Balance!</h1>
         <p class="mt-4 text-xl">Take this quick quiz to discover how balanced your life is across key areas like joy, health, and relationships.</p>
