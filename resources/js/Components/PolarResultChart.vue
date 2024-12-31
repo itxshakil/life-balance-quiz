@@ -3,7 +3,12 @@
     <canvas ref="chartRef" class="w-96 h-96"></canvas>
     <div class="mt-4 flex space-x-4">
       <button @click="saveAsPng" class="px-4 py-2 bg-blue-500 text-white rounded">Save as PNG</button>
-      <button @click="shareResult" class="px-4 py-2 bg-green-500 text-white rounded">Share Result</button>
+      <button @click="shareResult" class="px-4 py-2 bg-green-500 text-white rounded flex items-center justify-center dark:text-white">
+        <svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
+          <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-1-13h2v6h-2zm0 8h2v2h-2z"/>
+        </svg>
+        Share Result
+      </button>
     </div>
   </div>
 </template>
@@ -48,6 +53,16 @@ export default defineComponent({
                     "rgba(255, 206, 86, 0.2)",
                     "rgba(75, 192, 192, 0.2)",
                     "rgba(153, 102, 255, 0.2)",
+                    "rgba(255, 159, 64, 0.2)",
+                    "rgba(199, 199, 199, 0.2)",
+                    "rgba(83, 102, 255, 0.2)",
+                    "rgba(255, 99, 71, 0.2)",
+                    "rgba(60, 179, 113, 0.2)",
+                    "rgba(123, 104, 238, 0.2)",
+                    "rgba(255, 140, 0, 0.2)",
+                    "rgba(70, 130, 180, 0.2)",
+                    "rgba(244, 164, 96, 0.2)",
+                    "rgba(32, 178, 170, 0.2)"
                   ],
                   borderColor: [
                     "rgba(255, 99, 132, 1)",
@@ -55,6 +70,16 @@ export default defineComponent({
                     "rgba(255, 206, 86, 1)",
                     "rgba(75, 192, 192, 1)",
                     "rgba(153, 102, 255, 1)",
+                    "rgba(255, 159, 64, 1)",
+                    "rgba(199, 199, 199, 1)",
+                    "rgba(83, 102, 255, 1)",
+                    "rgba(255, 99, 71, 1)",
+                    "rgba(60, 179, 113, 1)",
+                    "rgba(123, 104, 238, 1)",
+                    "rgba(255, 140, 0, 1)",
+                    "rgba(70, 130, 180, 1)",
+                    "rgba(244, 164, 96, 1)",
+                    "rgba(32, 178, 170, 1)"
                   ],
                   borderWidth: 1,
                 },
@@ -70,7 +95,7 @@ export default defineComponent({
                 legend: {
                   display: true,
                   labels: {
-                    color: "rgb(55, 65, 81)", // Tailwind text-gray-700
+                    color: (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) ? 'white' : 'black'
                   },
                 },
               },
