@@ -1,5 +1,5 @@
 <template>
-  <div class="max-w-2xl mx-auto p-6 bg-white dark:bg-gray-800 shadow-lg rounded-lg">
+  <div class="max-w-2xl mx-auto p-6 bg-gray-100 dark:bg-gray-800 shadow-lg rounded-lg">
     <header class="mb-6 text-center">
       <h1 class="text-3xl font-bold text-blue-700 dark:text-blue-400">🌟 Life Balance Quiz</h1>
       <p class="text-gray-600 dark:text-gray-300 mt-2">Take a moment to assess your life balance across key areas.</p>
@@ -87,12 +87,8 @@
           </div>
         </div>
         <div class="text-center mt-6">
-          <button
-            @click="submitResults"
-            class="px-6 py-3 bg-green-600 text-white font-semibold rounded-lg hover:bg-green-700 dark:hover:bg-green-500 transition-all duration-200"
-          >
-            Submit Results
-          </button>
+          <p>Enjoying this? Share with friends to compare your results!</p>
+          <button @click="shareResults">Share</button>
         </div>
       </template>
     </main>
@@ -227,6 +223,20 @@ export default {
       // Submit results logic here
     };
 
+    const shareResults = () => {
+      if (navigator.share) {
+        navigator.share({
+          title: 'Life Balance Quiz',
+          text: 'Check out my results from the Life Balance Quiz!',
+          url: window.location.href,
+        })
+        .then(() => console.log('Successful share'))
+        .catch((error) => console.log('Error sharing', error));
+      } else {
+        alert('Web Share API is not supported in your browser.');
+      }
+    }
+
     return {
       shuffledQuestions,
       options,
@@ -240,6 +250,7 @@ export default {
       submitResults,
       progress,
       colors,
+      shareResults
     };
   },
 };
