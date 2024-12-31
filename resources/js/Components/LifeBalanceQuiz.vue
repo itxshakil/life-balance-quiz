@@ -204,16 +204,19 @@ export default {
 
     const categoryScores = computed(() => {
       const scores: Record<string, number> = {};
-      Object.keys(categories).forEach((category) => {
-        const categoryQuestions = categories[category];
-        const total = categoryQuestions.reduce(
-          (sum, questionId) => sum + (answers.value[questionId] || 0),
-          0
-        );
-        let score = total / categoryQuestions.length;
-        scores[category] = (score / 5 * 100).toFixed(2);
-      });
-      return scores;
+  Object.keys(categories).forEach((category) => {
+    const categoryQuestions = categories[category];
+    const total = categoryQuestions.reduce(
+      (sum, questionId) => sum + (answers.value[questionId] || 0),
+      0
+    );
+    let score = total / categoryQuestions.length;
+    scores[category] = (score / 5 * 100).toFixed(2);
+  });
+
+  return Object.fromEntries(
+    Object.entries(scores).sort(([, a], [, b]) => parseFloat(b) - parseFloat(a))
+  );
     });
 
     const progress = computed(() => {
