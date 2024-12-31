@@ -26,54 +26,43 @@
             v-for="option in options"
             :key="option.value"
             :for="option.value"
-            class="cursor-pointer flex flex-1 items-center justify-center px-4 py-2 bg-gray-100 dark:bg-gray-900 dark:text-white border rounded-lg shadow-sm hover:bg-blue-100 dark:hover:bg-blue-700 transition-all duration-200 peer-checked:bg-blue-100 peer-checked:border-blue-600 peer-checked:text-blue-800 dark:peer-checked:bg-blue-900 dark:peer-checked:border-blue-400 dark:peer-checked:text-blue-100"
+            class="cursor-pointer flex flex-1 items-center justify-center px-3 py-1 bg-gray-100 dark:bg-gray-900 dark:text-white border rounded-lg shadow-sm hover:bg-blue-100 dark:hover:bg-blue-700 transition-all duration-200"
+            :class="{ 'bg-blue-100 dark:bg-blue-700': selectedAnswer === option.value }"
           >
             <input
               type="radio"
               :id="option.value"
               v-model="selectedAnswer"
               :value="option.value"
-              class="peer hidden"
+              class="hidden"
             />
             <span class="text-lg whitespace-nowrap">{{ option.label }}</span>
           </label>
         </div>
-        <div class="text-center mt-6">
+        <div class="flex justify-center mt-6">
           <button
             @click="handleAnswer(selectedAnswer)"
-            class="px-6 py-3 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 dark:hover:bg-blue-500 transition-all duration-200"
+            :disabled="!selectedAnswer"
+            class="px-3 py-1 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 dark:hover:bg-blue-500 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:bg-blue-600 disabled:hover:text-white disabled:hover:border-blue-600 disabled:hover:shadow-none disabled:hover:ring-0 flex items-center justify-center gap-2"
           >
             Next
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 inline-block ml-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+            </svg>
           </button>
         </div>
       </template>
 
       <template v-else>
         <h2 class="text-2xl font-semibold text-center text-green-700 dark:text-green-400">Your Life Balance Results</h2>
-        <svg width="300" height="300" viewBox="0 0 300 300" class="mx-auto mt-6">
-          <circle
-            v-for="(score, category, index) in categoryScores"
-            :key="category"
-            :cx="150"
-            :cy="150"
-            :r="score * 1.5"
-            :fill="colors[index]"
-            fill-opacity="0.6"
-          />
-        </svg>
-
-        <!-- Radar Chart Container -->
-        <div class="mt-6">
-          <canvas id="radarChart" ref="radarChartRef" class="mx-auto"></canvas>
-        </div>
-
+        <PolarResultChart :scores="categoryScores" />
         <div class="grid grid-cols-1 gap-4 mt-6">
           <div
             v-for="(score, category) in categoryScores"
             :key="category"
             class="p-4 border rounded-lg shadow-md bg-gray-50 dark:bg-gray-900 dark:text-gray-200"
           >
-            <h3 class="text-xl font-semibold">{{ category }}</h3>
+            <h3 class="text-xl font-semibold capitalize">{{ category }}</h3>
             <p class="text-lg mt-2">
               Score: {{ (score / 5 * 100).toFixed(2) }}%
             </p>
@@ -120,8 +109,9 @@
 </template>
 
 <script lang="ts">
-import { ref, nextTick, computed, onMounted } from "vue";
-import Chart from "chart.js/auto";
+import { ref, computed } from "vue";
+import PolarResultChart from '@/Components/PolarResultChart.vue';
+
  // Assume this is where your data is stored
  export const questions = [
   { id: "joy_level", question: "How often do you feel genuine joy or happiness in your daily life?", category: "joy" },
@@ -187,62 +177,6 @@ export const suggestions = {
 
 export const colors = ["#ffadad", "#ffd6a5", "#fdffb6", "#caffbf", "#9bf6ff", "#a0c4ff", "#bdb2ff", "#ffc6ff"];
 
-export const renderRadarChart = (val) => {
-  console.log(val, val.value);
-  document.addEventListener('DOMContentLoaded', ()=>{
-    console.log("Loaded");
-  });
-  console.log("Rendering")
-      const ctx = document.getElementById("radarChart") as HTMLCanvasElement;
-      console.log(ctx);
-
-  if (!ctx) {
-    console.error("Canvas element not found");
-    return;
-  }
-
-      if (!ctx) return;
-
-      console.log(ctx);
-      const data = {
-        labels: Object.keys(categoryScores.value),
-        datasets: [
-          {
-            label: "Life Balance Scores",
-            data: Object.values(categoryScores.value),
-            backgroundColor: "rgba(54, 162, 235, 0.2)",
-            borderColor: "rgba(54, 162, 235, 1)",
-            borderWidth: 1,
-          },
-        ],
-      };
-
-      // const data = {
-      //   labels: [1, 2,3,4,5,6,7,8],
-      //   datasets: [
-      //     {
-      //       label: "Life Balance Scores",
-      //       data: [100, 77,60,50,30,20,10,18],
-      //       backgroundColor: "rgba(54, 162, 235, 0.2)",
-      //       borderColor: "rgba(54, 162, 235, 1)",
-      //       borderWidth: 1,
-      //     },
-      //   ],
-      // };
-
-      // new Chart(ctx, {
-      //   type: "radar",
-      //   data,
-      //   options: {
-      //     scales: {
-      //       r: {
-      //         suggestedMin: 0,
-      //         suggestedMax: 5,
-      //       },
-      //     },
-      //   },
-      // });
-    };
 export default {
   name: "LifeBalanceQuiz",
   setup() {
@@ -251,9 +185,7 @@ export default {
     const showResults = ref(false);
     const answers = ref<Record<string, number>>({});
     const shuffledQuestions = ref([...questions].sort(() => Math.random() - 0.5));
-    let radarChartRef = null;
 
-    console.log(radarChartRef);
     const handleAnswer = async (answer: string) => {
       if (!answer) return;
       const currentQ = shuffledQuestions.value[currentQuestion.value];
@@ -264,13 +196,6 @@ export default {
         selectedAnswer.value = "";
       } else {
         showResults.value = true;
-        await nextTick();
-
-        radarChartRef =  ref<HTMLCanvasElement | null>(null);
-
-        console.log(radarChartRef);
-
-      renderRadarChart(radarChartRef);
       }
     };
 
