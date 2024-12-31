@@ -144,8 +144,9 @@ export const options = [
   { value: "4", label: "Very" },
   { value: "5", label: "Extremely" },
 ];
+type Category = 'joy' | 'money' | 'mind' | 'personal_growth' | 'body' | 'friendships' | 'family' | 'romance' | 'soul' | 'mission/career';
 
-export const categories = {
+export const categories: Record<string, string[]> = {
   joy: ["joy_level", "gratitude_practice"],
   money: ["financial_security", "budgeting_habits", "debt_management"],
   mind: ["mental_clarity", "mindfulness_practice", "learning_new_skills"],
@@ -158,7 +159,7 @@ export const categories = {
   "mission/career": ["career_purpose", "work_growth", "job_security", "career_contribution"],
 };
 
-export const suggestions = {
+export const suggestions: Record<string, string[]> = {
   joy: ["Practice gratitude daily", "Engage in hobbies you enjoy", "Take time to relax and unwind"],
   money: ["Set up a budget", "Review your financial goals regularly", "Work on paying down debt"],
   mind: ["Practice mindfulness or meditation", "Engage in mentally stimulating activities", "Focus on learning new skills"],
@@ -204,15 +205,15 @@ export default {
   Object.keys(categories).forEach((category) => {
     const categoryQuestions = categories[category];
     const total = categoryQuestions.reduce(
-      (sum, questionId) => sum + (answers.value[questionId] || 0),
+      (sum:number, questionId:string) => sum + (answers.value[questionId] || 0),
       0
     );
     let score = total / categoryQuestions.length;
-    scores[category] = (score / 5 * 100).toFixed(2);
+    scores[category] = parseFloat((score / 5 * 100).toFixed(2));
   });
 
   return Object.fromEntries(
-    Object.entries(scores).sort(([, a], [, b]) => parseFloat(b) - parseFloat(a))
+    Object.entries(scores).sort(([, a], [, b]) => parseFloat(b.toString()) - parseFloat(a.toString()))
   );
     });
 
