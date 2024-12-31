@@ -195,6 +195,7 @@ export default {
         selectedAnswer.value = "";
       } else {
         showResults.value = true;
+        submitResults();
       }
     };
 
@@ -219,10 +220,6 @@ export default {
       return ((currentQuestion.value + 1) / shuffledQuestions.value.length) * 100;
     });
 
-    const submitResults = () => {
-      // Submit results logic here
-    };
-
     const shareResults = () => {
       if (navigator.share) {
         navigator.share({
@@ -234,6 +231,43 @@ export default {
         .catch((error) => console.log('Error sharing', error));
       } else {
         alert('Web Share API is not supported in your browser.');
+      }
+    }
+
+    // ... other methods
+    const submitResults =  async () => {
+      try {
+        console.log('Submitting quiz results...');
+        const cleanResponses = shuffledQuestions.value.map(question => ({
+          question: question.question,
+          answer: answers.value[question.id]
+        }));
+
+        const cleanResults = Object.entries(categoryScores.value).map(([category, score]) => ({
+          category,
+          score
+        }));
+
+        const response = await fetch('/api/submit-quiz', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            // 'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+          },
+          body: JSON.stringify({
+            responses: cleanResponses,
+            results: cleanResults
+          })
+        });
+
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        }
+
+        const data = await response.json();
+        console.log('Quiz submitted successfully:', data);
+      } catch (error) {
+        console.error('There was a problem with the submission:', error);
       }
     }
 
