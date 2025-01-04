@@ -14,10 +14,10 @@ const basicPathsToCache = [
     '/',
     '/?utmsource=homescreen',
     '/build/manifest.json',
-    '/build/assets/Welcome-f3LtbUbh.css',
+    '/build/assets/Welcome-DFUz49S8.css',
     '/build/assets/app-6gC74L6n.css',
     '/build/assets/_plugin-vue_export-helper-DlAUqK2U.js',
-    '/build/assets/app-CAX61PJj.js',
+    '/build/assets/app-8siMlEu-.js ',
     '/build/assets/Welcome-CLPY31kJ.js',
 ];
 
