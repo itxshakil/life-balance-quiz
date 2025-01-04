@@ -88,7 +88,9 @@
         </div>
         <div class="text-center mt-6">
           <p>Enjoying this? Share with friends to compare your results!</p>
-          <button @click="shareResults">Share</button>
+          <button @click="shareResults" class="mt-2 px-4 py-2 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 dark:hover:bg-blue-500 transition-all duration-200">
+            Share Results
+          </button>
         </div>
       </template>
     </main>
@@ -186,17 +188,56 @@ export default {
     const answers = ref<Record<string, number>>({});
     const shuffledQuestions = ref([...questions].sort(() => Math.random() - 0.5));
 
+    const trackEvent = (eventName: string, eventParams: Record<string, any>) => {
+      if (window.gtag) {
+        window.gtag('event', eventName, eventParams);
+      }
+    };
+
     const handleAnswer = async (answer: string) => {
       if (!answer) return;
       const currentQ = shuffledQuestions.value[currentQuestion.value];
       answers.value[currentQ.id] = parseInt(answer, 10);
+
+      if(currentQuestion.value === 1){
+        trackEvent('quiz_started', {
+          event_category: 'quiz',
+          event_label: 'Started',
+          value: 1
+        });
+      }
+
+      const otherMilestoneQuestions = [5, 10, 15, 20];
+      if (otherMilestoneQuestions.includes(currentQuestion.value)) {
+        trackEvent('quiz_progress', {
+          event_category: 'quiz',
+          event_label: 'Question ' + currentQuestion.value,
+          value: currentQuestion.value
+        });
+      }
 
       if (currentQuestion.value < shuffledQuestions.value.length - 1) {
         currentQuestion.value++;
         selectedAnswer.value = "";
       } else {
         showResults.value = true;
+
+        trackEvent('quiz_completed', {
+          event_category: 'quiz',
+          event_label: 'Completed',
+          value: 1
+        });
+
         submitResults();
+
+        // each category score to the gtag
+        Object.entries(categoryScores.value).forEach(([category, score]) => {
+          trackEvent('category_score', {
+            event_category: 'quiz',
+            event_label: category,
+            value: score
+          });
+        });
       }
     };
 
@@ -227,7 +268,7 @@ export default {
       if (navigator.share) {
         navigator.share({
           title: 'Life Balance Quiz',
-          text: 'Check out my results from the Life Balance Quiz!',
+          text: '✨ Check out my Life Balance Quiz results! 🚀 I just took the quiz and discovered some interesting insights about my life balance. Take the quiz and see how you compare! 🚀💡',
           url: window.location.href,
         })
         .then(() => console.log('Successful share'))
