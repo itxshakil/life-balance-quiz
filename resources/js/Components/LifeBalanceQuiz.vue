@@ -189,8 +189,9 @@ export default {
     const shuffledQuestions = ref([...questions].sort(() => Math.random() - 0.5));
 
     const trackEvent = (eventName: string, eventParams: Record<string, any>) => {
-      if (window.gtag) {
-        window.gtag('event', eventName, eventParams);
+      if ((window as any).gtag) {
+        // fix  error TS2339: Property 'gtag' does not exist on type 'Window & typeof globalThis'.
+        (window as any).gtag('event', eventName, eventParams);
       }
     };
 
