@@ -14,14 +14,11 @@ const basicPathsToCache = [
     '/',
     '/?utmsource=homescreen',
     '/build/manifest.json',
-    '/build/assets/QuizStartButton.css',
-    '/build/assets/QuizResultsButton.js',
-    '/build/assets/LoadingSpinner.js',
-    '/build/assets/QuizForm.js',
-    '/build/assets/QuizResultCard.js',
-    '/build/assets/ErrorHandler.js',
-    '/build/assets/ResultsSummary.js',
-    '/assets/images/no-image.jpg',
+    '/build/assets/Welcome-f3LtbUbh.css',
+    '/build/assets/app-6gC74L6n.css',
+    '/build/assets/_plugin-vue_export-helper-DlAUqK2U.js',
+    '/build/assets/app-CAX61PJj.js',
+    '/build/assets/Welcome-CLPY31kJ.js',
 ];
 
 function log(message, ...optionalParams) {
