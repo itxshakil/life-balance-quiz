@@ -2,20 +2,37 @@
   <div class="w-full flex flex-col items-center justify-center">
     <canvas ref="chartRef" class="w-96 h-96"></canvas>
     <div class="mt-4 flex space-x-4">
-      <button @click="saveAsPng" class="px-4 py-2 bg-blue-500 text-white rounded">Save as PNG</button>
-      <button @click="shareResult" class="px-4 py-2 bg-green-500 text-white rounded flex items-center justify-center dark:text-white">
-        <svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
-          <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-1-13h2v6h-2zm0 8h2v2h-2z"/>
+      <button class="px-4 py-2 bg-blue-500 text-white rounded inline-flex items-center gap-2" @click="saveAsPng">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+             stroke-width="2" viewBox="0 0 24 24"
+             xmlns="http://www.w3.org/2000/svg">
+          <path d="M0 0h24v24H0z" fill="none" stroke="none"/>
+          <path d="M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2 -2v-2"/>
+          <path d="M7 11l5 5l5 -5"/>
+          <path d="M12 4l0 12"/>
         </svg>
-        Share Result
+        <span>Save as PNG</span>
+      </button>
+      <button class="px-4 py-2 bg-green-500 text-white rounded flex items-center gap-2 justify-center dark:text-white"
+              @click="shareResult">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+             stroke-width="2" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
+          <path d="M0 0h24v24H0z" fill="none" stroke="none"/>
+          <path d="M6 12m-3 0a3 3 0 1 0 6 0a3 3 0 1 0 -6 0"/>
+          <path d="M18 6m-3 0a3 3 0 1 0 6 0a3 3 0 1 0 -6 0"/>
+          <path d="M18 18m-3 0a3 3 0 1 0 6 0a3 3 0 1 0 -6 0"/>
+          <path d="M8.7 10.7l6.6 -3.4"/>
+          <path d="M8.7 13.3l6.6 3.4"/>
+        </svg>
+        <span>Share Result</span>
       </button>
     </div>
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, onMounted, watch, PropType } from "vue";
-import { Chart, ChartConfiguration, PolarAreaController, Tooltip, Legend, ArcElement, RadialLinearScale } from "chart.js";
+import {defineComponent, onMounted, PropType, ref, watch} from "vue";
+import {ArcElement, Chart, ChartConfiguration, Legend, PolarAreaController, RadialLinearScale, Tooltip} from "chart.js";
 
 // Register required components
 Chart.register(PolarAreaController, Tooltip, Legend, ArcElement, RadialLinearScale);
@@ -33,7 +50,6 @@ export default defineComponent({
     let polarChart: Chart | null = null;
 
     const initializeChart = () => {
-      console.log("Initialize")
       if (chartRef.value) {
         const ctx = chartRef.value.getContext("2d");
         if (ctx) {
@@ -110,7 +126,6 @@ export default defineComponent({
                   ticks: {
                     stepSize: 25,
                     backdropColor: "transparent",
-                    callback: (value) => `${value}%`,
                   },
                   grid: {
                     color: "rgba(200, 200, 200, 0.2)",
@@ -119,8 +134,6 @@ export default defineComponent({
               },
             },
           };
-
-          console.log(chartConfig);
 
           polarChart = new Chart(ctx, chartConfig);
         }
@@ -132,19 +145,19 @@ export default defineComponent({
     });
 
     watch(
-      () => props.scores,
-      () => initializeChart(),
-      { deep: true }
+        () => props.scores,
+        () => initializeChart(),
+        {deep: true}
     );
 
     const saveAsPng = () => {
       const link = document.createElement('a');
-      console.log(polarChart);
+
       if (polarChart) {
         link.href = polarChart.toBase64Image();
       }
-      link.download = 'polar-chart.png';
-      console.log('Chart saved as polar-chart.png');
+      const date = new Date().toISOString().slice(0, 10);
+      link.download = 'life-balance-scores' + date + '.png';
       link.click();
     }
 
@@ -154,17 +167,17 @@ export default defineComponent({
         try {
           await navigator.share({
             title: 'Life Balance Scores',
-            text: 'Check out my life balance scores!',
-            files: [new File([await (await fetch(imageUrl)).blob()], 'polar-chart.png', { type: 'image/png' })],
+            text: '✨ Take the Life Balance Quiz and unlock secrets to a happier, healthier you! 🚀 I don’t want to keep this awesome website to myself. I think you’ll love it too! Let’s take it together and see how we compare 🚀💡.',
+            files: [new File([await (await fetch(imageUrl)).blob()], 'polar-chart.png', {type: 'image/png'})],
           });
-          console.log('Chart shared successfully');
+
         } catch (error) {
           console.error('Error sharing chart:', error);
         }
       }
     };
 
-    return { chartRef, saveAsPng, shareResult };
+    return {chartRef, saveAsPng, shareResult};
   },
 });
 </script>

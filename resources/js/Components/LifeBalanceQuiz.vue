@@ -1,5 +1,5 @@
 <template>
-  <div class="max-w-2xl mx-auto p-6 bg-gray-100 dark:bg-gray-800 shadow-lg rounded-lg">
+  <div class="p-6 bg-gray-100 dark:bg-gray-800 shadow-lg rounded-lg">
     <header class="mb-6 text-center">
       <h1 class="text-3xl font-bold text-blue-700 dark:text-blue-400">🌟 Life Balance Quiz</h1>
       <p class="text-gray-600 dark:text-gray-300 mt-2">Take a moment to assess your life balance across key areas.</p>
@@ -105,10 +105,10 @@
 </template>
 
 <script lang="ts">
-import { ref, computed } from "vue";
+import {computed, ref} from "vue";
 import PolarResultChart from '@/Components/PolarResultChart.vue';
 
- // Assume this is where your data is stored
+// Assume this is where your data is stored
  export const questions = [
   { id: "joy_level", question: "How often do you feel genuine joy or happiness in your daily life?", category: "joy" },
   { id: "gratitude_practice", question: "How regularly do you practice gratitude?", category: "joy" },
@@ -218,7 +218,9 @@ export default {
     });
 
     const progress = computed(() => {
-      return ((currentQuestion.value + 1) / shuffledQuestions.value.length) * 100;
+      if(currentQuestion.value === 0) return 0;
+
+      return ((currentQuestion.value) / shuffledQuestions.value.length) * 100;
     });
 
     const shareResults = () => {
@@ -238,7 +240,6 @@ export default {
     // ... other methods
     const submitResults =  async () => {
       try {
-        console.log('Submitting quiz results...');
         const cleanResponses = shuffledQuestions.value.map(question => ({
           question: question.question,
           answer: answers.value[question.id]
@@ -264,9 +265,6 @@ export default {
         if (!response.ok) {
           throw new Error('Network response was not ok');
         }
-
-        const data = await response.json();
-        console.log('Quiz submitted successfully:', data);
       } catch (error) {
         console.error('There was a problem with the submission:', error);
       }
