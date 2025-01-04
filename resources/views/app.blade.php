@@ -10,7 +10,7 @@
         <meta name="description" content="Take the Life Balance Quiz to discover how balanced your life is across key areas like joy, health, and relationships. Get personalized insights and actionable steps to enhance your well-being.">
 
         <!-- Open Graph Tags -->
-        <meta property="og:title" content="Life Balance Quiz">
+        <meta property="og:title" content="Ready for a Happier You? Take the Life Balance Quiz Now!">
         <meta property="og:description" content="Take the Life Balance Quiz to discover how balanced your life is across key areas like joy, health, and relationships. Get personalized insights and actionable steps to enhance your well-being.">
         <meta property="og:image" content="https://example.com/path/to/your/image.jpg">
         <meta property="og:url" content="{{ url()->current() }}">
@@ -18,24 +18,47 @@
 
         <!-- Twitter Tags -->
         <meta name="twitter:card" content="summary_large_image">
-        <meta name="twitter:title" content="Life Balance Quiz">
+        <meta name="twitter:title" content="Ready for a Happier You? Take the Life Balance Quiz Now!">
         <meta name="twitter:description" content="Take the Life Balance Quiz to discover how balanced your life is across key areas like joy, health, and relationships. Get personalized insights and actionable steps to enhance your well-being.">
         <meta name="twitter:image" content="https://example.com/path/to/your/image.jpg">
 
         <!-- Structured Data -->
         <script type="application/ld+json">
-        {
-          "@context": "https://schema.org",
-          "@type": "WebSite",
-          "name": "Life Balance Quiz",
-          "url": "{{ url()->current() }}",
-          "description": "Take the Life Balance Quiz to discover how balanced your life is across key areas like joy, health, and relationships. Get personalized insights and actionable steps to enhance your well-being.",
-          "aggregateRating": {
-            "@type": "AggregateRating",
-            "ratingValue": "4.5",
-            "reviewCount": "90"
-          }
-        }
+            {
+              "@context": "https://schema.org",
+              "@type": "WebApplication",
+              "name": "Life Balance Quiz",
+              "applicationCategory": "Health & Fitness, Personal Development",
+              "browserRequirements": "Requires modern browser with HTML5 support.",
+              "availableOnDevice": "Desktop, Mobile",
+              "countriesSupported": "Worldwide",
+              "countriesNotSupported": "",
+              "downloadUrl": "{{ url()->current() }}",
+              "featureList": "Goal setting, Task management, Habit tracking, Progress monitoring",
+              "fileSize": "120KB",
+              "installUrl": "{{ url()->current() }}",
+              "memoryRequirements": "1GB RAM minimum",
+              "operatingSystem": "Android, iOS, Windows, macOS",
+              "permissions": "Internet access for syncing data",
+              "processorRequirements": "x64 architecture",
+              "releaseNotes": "Minor bug fixes and improvements",=
+              "softwareVersion": "1.0.0",
+              "aggregateRating": {
+                "@type": "AggregateRating",
+                "ratingValue": 4.5,
+                "ratingCount": 90
+              },
+              "offers": {
+                "@type": "Offer",
+                "price": "0.00",
+                "priceCurrency": "USD",
+                "url": "{{ url()->current() }}",
+                "eligibleRegion": {
+                  "@type": "Place",
+                  "name": "Worldwide"
+                }
+              }
+            }
         </script>
 
         <!-- Fonts -->
@@ -47,24 +70,25 @@
         @vite(['resources/js/app.ts', "resources/js/Pages/{$page['component']}.vue"])
         @inertiaHead
 
-        <!-- Google tag (gtag.js) -->
-        <script async src="https://www.googletagmanager.com/gtag/js?id=G-44QE5R8BSJ"></script>
-        <script>
-          window.dataLayer = window.dataLayer || [];
-          function gtag(){dataLayer.push(arguments);}
-          gtag('js', new Date());
-        
-          gtag('config', 'G-44QE5R8BSJ');
-        </script>
+        @production
+            <!-- Google tag (gtag.js) -->
+            <script async src="https://www.googletagmanager.com/gtag/js?id=G-44QE5R8BSJ"></script>
+            <script>
+                window.dataLayer = window.dataLayer || [];
+                function gtag(){dataLayer.push(arguments);}
+                gtag('js', new Date());
 
-        <script type="text/javascript">
-            (function(c,l,a,r,i,t,y){
-                c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
-                t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
-                y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
-            })(window, document, "clarity", "script", "pmlfn3bdho");
-        </script>
+                gtag('config', 'G-44QE5R8BSJ');
+            </script>
 
+            <script type="text/javascript">
+                (function(c,l,a,r,i,t,y){
+                    c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+                    t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+                    y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+                })(window, document, "clarity", "script", "pmlfn3bdho");
+            </script>
+        @endproduction
     </head>
     <body class="font-sans antialiased">
         @inertia
