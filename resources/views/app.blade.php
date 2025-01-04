@@ -22,6 +22,9 @@
         <meta name="twitter:description" content="Take the Life Balance Quiz to discover how balanced your life is across key areas like joy, health, and relationships. Get personalized insights and actionable steps to enhance your well-being.">
         <meta name="twitter:image" content="https://example.com/path/to/your/image.jpg">
 
+        <!-- Manifest File -->
+        <link rel="manifest" href="/app.webmanifest">
+
         <!-- Structured Data -->
         <script type="application/ld+json">
             {
@@ -92,5 +95,37 @@
     </head>
     <body class="font-sans antialiased">
         @inertia
+
+        <script type="text/javascript">
+            if('serviceWorker' in navigator) {
+                window.addEventListener('load', function() {
+                    navigator.serviceWorker.register('/service-worker.js').then(function(registration) {
+                        let serviceWorker;
+
+                        if (registration.installing) {
+                            serviceWorker = registration.installing;
+                            console.log('Service worker installing');
+                        } else if (registration.waiting) {
+                            serviceWorker = registration.waiting;
+                            console.log('Service worker installed & waiting');
+                        } else if (registration.active) {
+                            serviceWorker = registration.active;
+                            console.log('Service worker active');
+                        }
+
+                        if (serviceWorker) {
+                            console.log('ServiceWorker phase:', serviceWorker.state);
+                            serviceWorker.addEventListener('statechange', function(e) {
+                                console.log('ServiceWorker phase:', e.target.state);
+                            });
+                        }
+
+                        console.log('ServiceWorker registration successful with scope: ', registration.scope);
+                    }, function(err) {
+                        console.log('ServiceWorker registration failed: ', err);
+                    });
+                });
+            }
+        </script>
     </body>
 </html>

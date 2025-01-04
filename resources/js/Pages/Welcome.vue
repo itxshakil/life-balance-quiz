@@ -91,7 +91,7 @@
 
     <!-- Quiz Section -->
     <div ref="quizSection" class="p-2 mt-10">
-      <LifeBalanceQuiz/>
+      <LifeBalanceQuiz class="max-w-5xl mx-auto"/>
     </div>
 
     <footer class="text-center py-6 bg-gray-100 dark:bg-gray-900 text-gray-900 dark:text-gray-100">
