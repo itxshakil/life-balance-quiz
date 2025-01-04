@@ -91,6 +91,9 @@
                     y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
                 })(window, document, "clarity", "script", "pmlfn3bdho");
             </script>
+
+            <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4132498105758259"
+                    crossorigin="anonymous"></script>
         @endproduction
     </head>
     <body class="font-sans antialiased">
