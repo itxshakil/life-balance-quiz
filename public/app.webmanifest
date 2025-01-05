@@ -499,7 +499,7 @@
         {
             "name": "Start Quiz",
             "short_name": "start_quiz",
-            "url": "/quiz?utm_source=start_quiz_shortcut",
+            "url": "/?utm_source=start_quiz_shortcut",
             "icons": [
                 {
                     "src": "/assets/icons/ios/192.png",
