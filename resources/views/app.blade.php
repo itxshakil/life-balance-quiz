@@ -6,6 +6,8 @@
 
         <title inertia>{{ config('app.name', 'Laravel') }}</title>
 
+
+            <meta head-key="og:description" property="og:description" content="Take the Life Balance Quiz to discover how balanced your life is across key areas like joy, health, and relationships. Get personalized insights and actionable steps to enhance your well-being." />
         <meta property="og:site_name" content="Life Balance Quiz" />
 
         <!-- Manifest File -->
