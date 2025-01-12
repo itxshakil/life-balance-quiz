@@ -12,7 +12,7 @@ const STATIC_ASSETS = [
 
 const basicPathsToCache = [
     '/',
-    '/?utmsource=homescreen',
+    '/?utm_source=homescreen',
     '/build/manifest.json',
     '/build/assets/Welcome-DFUz49S8.css',
     '/build/assets/app-6gC74L6n.css',
