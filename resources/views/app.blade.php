@@ -30,7 +30,7 @@
               "operatingSystem": "Android, iOS, Windows, macOS",
               "permissions": "Internet access for syncing data",
               "processorRequirements": "x64 architecture",
-              "releaseNotes": "Minor bug fixes and improvements",=
+              "releaseNotes": "Minor bug fixes and improvements",
               "softwareVersion": "1.0.0",
               "aggregateRating": {
                 "@type": "AggregateRating",
