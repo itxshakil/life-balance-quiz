@@ -15,8 +15,13 @@
     </header>
 
     <main>
+      <!-- Quiz Section -->
+      <div ref="quizSection" class="p-2 mt-10">
+        <LifeBalanceQuiz class="max-w-5xl mx-auto"/>
+      </div>
+
       <!-- How It Works Section -->
-      <section class="max-w-4xl md:mx-auto p-6 mx-2 bg-white dark:bg-gray-800 rounded-lg shadow-lg text-center my-10">
+      <section class="max-w-4xl md:mx-auto p-6 mx-2 rounded-lg shadow-lg text-center my-10">
         <h2 class="text-2xl font-semibold">🛠️ How It Works</h2>
         <p class="mt-4 text-lg text-pretty">Our Life Balance Quiz takes just a few minutes to complete. You’ll answer simple,
           thoughtful questions about different areas of your life. Based on your answers, we provide clear, actionable
@@ -24,7 +29,7 @@
       </section>
 
       <!-- Why It Matters Section -->
-      <section class="max-w-4xl md:mx-auto p-6 mx-2 bg-white dark:bg-gray-800 rounded-lg shadow-lg text-center my-10">
+      <section class="max-w-4xl md:mx-auto p-6 mx-2 rounded-lg shadow-lg text-center my-10">
         <h2 class="text-2xl font-semibold">💡 Why It Matters</h2>
         <p class="mt-4 text-lg text-pretty">Feeling overwhelmed or stuck in a routine? This quiz helps you reflect on what’s going
           well and what could use some love and attention. With this insight, you’ll be empowered to take small,
@@ -32,7 +37,7 @@
       </section>
 
       <!-- What You'll Gain Section -->
-      <section class="max-w-4xl md:mx-auto p-6 mx-2 bg-white dark:bg-gray-800 rounded-lg shadow-lg text-center my-10">
+      <section class="max-w-4xl md:mx-auto p-6 mx-2  rounded-lg shadow-lg text-center my-10">
         <h2 class="text-2xl font-semibold text-center">🎁 What You'll Gain</h2>
         <ul class="mt-6 space-y-4">
           <li class="text-lg">✨ A clear snapshot of your current life balance</li>
@@ -46,7 +51,7 @@
       </section>
 
       <!-- Start Your Journey Section -->
-      <section class="max-w-4xl md:mx-auto p-6 mx-2 bg-white dark:bg-gray-800 rounded-lg shadow-lg text-center my-10">
+      <section class="max-w-4xl md:mx-auto p-6 mx-2 rounded-lg shadow-lg text-center my-10">
         <h2 class="text-2xl font-semibold">🚀 Start Your Journey Today</h2>
         <p class="mt-4 text-lg">Your best life starts with understanding where you are right now. Let’s uncover your
           potential and create a roadmap for a more joyful and balanced life!</p>
@@ -61,7 +66,7 @@
 
     <!-- Testimonials Section -->
     <section
-        class="max-w-4xl md:mx-auto p-6 mx-2 bg-white dark:bg-gray-800 rounded-lg shadow-lg text-center my-10 py-10">
+        class="max-w-4xl md:mx-auto p-6 mx-2 rounded-lg shadow-lg text-center my-10 py-10">
       <div class="max-w-4xl mx-auto px-2">
         <h2 class="text-2xl font-semibold text-center">📣 What Others Are Saying</h2>
         <p class="mt-4 text-lg text-center">"This quiz helped me understand areas of my life I’d been ignoring. The tips
@@ -87,11 +92,6 @@
         </svg>
         <span>Share & Inspire</span>
       </button>
-    </div>
-
-    <!-- Quiz Section -->
-    <div ref="quizSection" class="p-2 mt-10">
-      <LifeBalanceQuiz class="max-w-5xl mx-auto"/>
     </div>
 
     <footer class="text-center py-6 bg-gray-100 dark:bg-gray-900 text-gray-900 dark:text-gray-100">

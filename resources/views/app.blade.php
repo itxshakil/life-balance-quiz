@@ -96,7 +96,7 @@
                     crossorigin="anonymous"></script>
         @endproduction
     </head>
-    <body class="font-sans antialiased">
+    <body class="font-sans antialiased dark:bg-gray-800 dark:text-white">
         @inertia
 
         <script type="text/javascript">
