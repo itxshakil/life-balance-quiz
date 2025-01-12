@@ -1,5 +1,5 @@
 <template>
-  <div class="p-6 bg-gray-100 dark:bg-gray-800 shadow-lg rounded-lg">
+  <div class="p-6 bg-gray-200 dark:bg-gray-800 shadow-lg rounded-lg">
     <header class="mb-6 text-center">
       <h1 class="text-3xl font-bold text-blue-700 dark:text-blue-400">🌟 Life Balance Quiz</h1>
       <p class="text-gray-600 dark:text-gray-300 mt-2">Take a moment to assess your life balance across key areas.</p>
@@ -26,8 +26,8 @@
             v-for="option in options"
             :key="option.value"
             :for="option.value"
-            class="cursor-pointer flex flex-1 items-center justify-center px-3 py-1 dark:text-white border rounded-lg shadow-sm hover:bg-blue-100 dark:hover:bg-blue-700 transition-all duration-200"
-            :class="selectedAnswer == option.value ? 'bg-blue-200 dark:bg-blue-600' : 'bg-gray-100 dark:bg-gray-900'"
+            class="cursor-pointer flex flex-1 items-center justify-center px-3 py-1 dark:text-white border rounded-lg shadow-sm hover:bg-blue-800 dark:hover:bg-blue-700 transition-all duration-200"
+            :class="selectedAnswer == option.value ? 'bg-blue-200 dark:bg-blue-600 text-white' : 'bg-gray-100 dark:bg-gray-900'"
           >
             <input
               type="radio"
@@ -77,12 +77,17 @@
               </p>
               <ul class="mt-2 list-disc list-inside text-sm text-gray-600 dark:text-gray-400">
                 <li
-                  v-for="suggestion in suggestions[category]"
-                  :key="suggestion"
+                    v-for="suggestion in suggestions[category]"
+                    :key="suggestion"
                 >
                   {{ suggestion }}
                 </li>
               </ul>
+              <p class="mt-4 text-blue-600 dark:text-blue-400">
+                <Link :href="blogs[category]" target="_blank" class="underline">
+                  Read more about improving your {{ category }} here.
+                </Link>
+              </p>
             </template>
           </div>
         </div>
@@ -108,7 +113,21 @@
 
 <script lang="ts">
 import {computed, ref} from "vue";
+import {Link} from "@inertiajs/vue3";
 import PolarResultChart from '@/Components/PolarResultChart.vue';
+
+export const blogs: Record<string, string> = {
+  joy: "/blogs/create-lasting-happiness",
+  money: "/blogs/boost-your-career-strategies",
+  mind: "/blogs/mental-health-tips",
+  personal_growth: "/blogs/personal-growth-hacks",
+  body: "/blogs/how-to-stay-fit-and-healthy",
+  friendships: "/blogs/building-stronger-relationships",
+  family: "/blogs/building-stronger-relationships",
+  romance: "/blogs/building-stronger-relationships",
+  soul: "blogs/achieving-spiritual-well-being",
+  "mission/career": "/blogs/boost-your-career-strategies",
+};
 
 // Assume this is where your data is stored
  export const questions = [
@@ -179,7 +198,8 @@ export const colors = ["#ffadad", "#ffd6a5", "#fdffb6", "#caffbf", "#9bf6ff", "#
 export default {
   name: "LifeBalanceQuiz",
   components: {
-    PolarResultChart
+    PolarResultChart,
+    Link
   },
   setup() {
     const currentQuestion = ref(0);
@@ -266,18 +286,29 @@ export default {
     });
 
     const shareResults = () => {
+      const shareText = `✨ Check out my Life Balance Quiz results! 🚀 I just took the quiz and discovered some interesting insights about my life balance. Take the quiz and see how you compare! 🚀💡\n\n`;
+
+      const resultsText = Object.entries(categoryScores.value)
+          .map(([category, score]) => `${category.toUpperCase()}: ${score}%`)
+          .join("\n");
+
+      const message = `${shareText}\n${resultsText}\n\nTake the quiz here: ${window.location.href}`;
+
       if (navigator.share) {
         navigator.share({
           title: 'Life Balance Quiz',
-          text: '✨ Check out my Life Balance Quiz results! 🚀 I just took the quiz and discovered some interesting insights about my life balance. Take the quiz and see how you compare! 🚀💡',
+          text: message,
           url: window.location.href,
         })
-        .then(() => console.log('Successful share'))
-        .catch((error) => console.log('Error sharing', error));
+            .then(() => console.log('Successful share'))
+            .catch((error) => console.log('Error sharing', error));
       } else {
-        alert('Web Share API is not supported in your browser.');
+        // Fallback to WhatsApp sharing
+        const whatsappUrl = `https://wa.me/?text=${encodeURIComponent(message)}`;
+        window.open(whatsappUrl, "_blank");
       }
-    }
+    };
+
 
     // ... other methods
     const submitResults =  async () => {
@@ -325,7 +356,8 @@ export default {
       submitResults,
       progress,
       colors,
-      shareResults
+      shareResults,
+      blogs
     };
   },
 };

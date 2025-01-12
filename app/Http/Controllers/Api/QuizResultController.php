@@ -11,12 +11,12 @@ class QuizResultController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'answers' => 'required|array',
+            'responses' => 'required|array',
             'results' => 'required|array',
         ]);
 
         $quizResult = QuizResult::create([
-            'answers' => $request->answers,
+            'answers' => $request->responses,
             'results' => $request->results,
             'ip_address' => $request->ip(),
             'user_agent' => $request->userAgent(),

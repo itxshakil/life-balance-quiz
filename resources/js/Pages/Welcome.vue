@@ -1,43 +1,74 @@
 <template>
-  <Head title="Ready for a Happier You? Take the Life Balance Quiz Now!"/>
-  <div class="landing-page bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100">
+  <Head>
+    <title>{{ title }}</title>
 
-    <!-- Hero Section -->
-    <header class="text-center py-16 bg-gradient-to-r from-blue-500 via-purple-500 to-indigo-500 text-white">
-      <h1 class="text-4xl md:text-5xl font-extrabold">🌟 Find Your Life Balance</h1>
-      <p class="mt-6 text-xl md:text-2xl text-pretty">Discover what’s holding you back and unlock actionable insights
-        for a happier, healthier you.</p>
-      <button
-          class="px-8 py-4 mt-8 bg-green-600 text-white font-bold rounded-lg shadow-lg hover:bg-green-700 dark:hover:bg-green-500 transition-all duration-200"
-          @click="scrollToQuiz">
-        Take the Quiz Now
-      </button>
+    <meta head-key="description" name="description" :content="description" />
+    <meta head-key="keywords" name="keywords" :content="keywords" />
+    <meta head-key="autor" name="author" content="Shakil Alam" />
+    <meta head-key="robots" name="robots" content="index, follow" />
+
+    <meta head-key="og:title" property="og:title" :content="title" />
+    <meta head-key="og:description" property="og:description" :content="description" />
+    <meta head-key="og:url" property="og:url" :content="url" />
+    <meta head-key="og:type" property="og:type" content="website" />
+    <meta head-key="og:image" property="og:image" :content="image" />
+
+    <meta head-key="twitter:card" name="twitter:card" content="summary_large_image" />
+    <meta head-key="twitter:title" name="twitter:title" :content="title" />
+    <meta head-key="twitter:description" name="twitter:description" :content="description" />
+    <meta head-key="twitter:image" name="twitter:image" :content="image" />
+    <meta head-key="twitter:creator" name="twitter:creator" content="@itxshakil" />
+  </Head>
+
+  <div class="landing-page bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100">
+    <header class="relative isolate px-6 pt-14 lg:px-8 dark:bg-gray-900 dark:text-white">
+      <div class="mx-auto max-w-7xl py-32 sm:py-48 lg:py-56">
+        <div class="text-center">
+          <h1 class="text-4xl font-extrabold dark:text-white sm:text-5xl">
+            🌟 Find Your Life Balance and Thrive
+          </h1>
+          <h2 class="mt-6 sm:text-lg leading-8 text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
+            Unlock the <strong>secrets to a more fulfilling life with personalized insights</strong>. Discover what’s holding you back and take the <strong>first step toward a brighter tomorrow!</strong>
+          </h2>
+
+          <div class="mt-10 flex items-center justify-center gap-x-6">
+            <button
+                class="px-10 py-5 mt-8 bg-gradient-to-r from-teal-400 to-green-600 text-white font-semibold text-lg rounded-lg shadow-xl hover:bg-green-700 dark:hover:bg-green-500 transition-all duration-300 transform hover:scale-105 animate-shake"
+                @click="scrollToQuiz">
+              Take the Quiz Now
+              <svg xmlns="http://www.w3.org/2000/svg" class="inline-block ml-3 w-6 h-6 text-white animate-bounce" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 4v16m8-8l-8 8-8-8"></path>
+              </svg>
+            </button>
+          </div>
+
+          <div class="mt-8 text-lg text-gray-600 dark:text-gray-400">
+            <p>Already know where you stand? Start your journey with just a click!</p>
+          </div>
+        </div>
+      </div>
     </header>
 
     <main>
-      <!-- Quiz Section -->
       <div ref="quizSection" class="p-2 mt-10">
         <LifeBalanceQuiz class="max-w-5xl mx-auto"/>
       </div>
 
-      <!-- How It Works Section -->
-      <section class="max-w-4xl md:mx-auto p-6 mx-2 rounded-lg shadow-lg text-center my-10">
+      <section class="max-w-4xl md:mx-auto p-6 mx-2 rounded-lg text-center my-10">
         <h2 class="text-2xl font-semibold">🛠️ How It Works</h2>
         <p class="mt-4 text-lg text-pretty">Our Life Balance Quiz takes just a few minutes to complete. You’ll answer simple,
           thoughtful questions about different areas of your life. Based on your answers, we provide clear, actionable
           feedback to help you create a more fulfilling and balanced life.</p>
       </section>
 
-      <!-- Why It Matters Section -->
-      <section class="max-w-4xl md:mx-auto p-6 mx-2 rounded-lg shadow-lg text-center my-10">
+      <section class="max-w-4xl md:mx-auto p-6 mx-2 rounded-lg text-center my-10">
         <h2 class="text-2xl font-semibold">💡 Why It Matters</h2>
         <p class="mt-4 text-lg text-pretty">Feeling overwhelmed or stuck in a routine? This quiz helps you reflect on what’s going
           well and what could use some love and attention. With this insight, you’ll be empowered to take small,
           meaningful steps toward a happier and healthier you.</p>
       </section>
 
-      <!-- What You'll Gain Section -->
-      <section class="max-w-4xl md:mx-auto p-6 mx-2  rounded-lg shadow-lg text-center my-10">
+      <section class="max-w-4xl md:mx-auto p-6 mx-2  rounded-lg text-center my-10">
         <h2 class="text-2xl font-semibold text-center">🎁 What You'll Gain</h2>
         <ul class="mt-6 space-y-4">
           <li class="text-lg">✨ A clear snapshot of your current life balance</li>
@@ -50,8 +81,7 @@
         </div>
       </section>
 
-      <!-- Start Your Journey Section -->
-      <section class="max-w-4xl md:mx-auto p-6 mx-2 rounded-lg shadow-lg text-center my-10">
+      <section class="max-w-4xl md:mx-auto p-6 mx-2 rounded-lg text-center my-10">
         <h2 class="text-2xl font-semibold">🚀 Start Your Journey Today</h2>
         <p class="mt-4 text-lg">Your best life starts with understanding where you are right now. Let’s uncover your
           potential and create a roadmap for a more joyful and balanced life!</p>
@@ -64,9 +94,8 @@
 
     </main>
 
-    <!-- Testimonials Section -->
     <section
-        class="max-w-4xl md:mx-auto p-6 mx-2 rounded-lg shadow-lg text-center my-10 py-10">
+        class="max-w-4xl md:mx-auto p-6 mx-2 rounded-lg text-center my-10 py-10">
       <div class="max-w-4xl mx-auto px-2">
         <h2 class="text-2xl font-semibold text-center">📣 What Others Are Saying</h2>
         <p class="mt-4 text-lg text-center">"This quiz helped me understand areas of my life I’d been ignoring. The tips
@@ -76,7 +105,20 @@
       </div>
     </section>
 
-    <!-- Floating Share Button -->
+    <section class="max-w-6xl mx-auto py-16 px-4">
+      <h2 class="text-3xl font-bold text-center mb-8">Featured Blog Posts</h2>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+
+        <PostCard
+            v-for="(post, index) in featuredPosts"
+            :title="post.title"
+            :description="post.description"
+            :link="post.link"
+            :key="index"
+            />
+      </div>
+    </section>
+
     <div class="fixed bottom-6 right-6">
       <button
           class="inline-flex gap-2 items-center bg-blue-600 dark:bg-blue-800 text-white px-4 py-2 rounded-full shadow-lg hover:bg-blue-700 dark:hover:bg-blue-700 transition-all duration-200 font-semibold"
@@ -94,25 +136,25 @@
       </button>
     </div>
 
-    <footer class="text-center py-6 bg-gray-100 dark:bg-gray-900 text-gray-900 dark:text-gray-100">
-      <p class="text-lg">© 2025 Life Balance Quiz. All rights reserved.</p>
-      <p class="text-lg">Designed with <span class="text-red-900 dark:text-red-600">&hearts;</span> by <a
-          class="text-blue-600 dark:text-blue-400 font-semibold" href="https://shakiltech.com?utm_source=life_quiz">Shakil
-        Alma</a></p>
-    </footer>
+    <Footer />
   </div>
 </template>
 
 <script lang="ts">
 import {defineComponent, ref} from 'vue';
-import {Head} from '@inertiajs/vue3';
+import {Head, Link} from '@inertiajs/vue3';
 import LifeBalanceQuiz from '@/Components/LifeBalanceQuiz.vue';
+import PostCard from "@/Components/PostCard.vue";
+import Footer from "@/Layouts/Footer.vue";
 
 export default defineComponent({
   name: 'Welcome',
   components: {
+    Footer,
+    Link,
     LifeBalanceQuiz,
-    Head
+    Head,
+    PostCard
   },
   setup() {
     const quizSection = ref<HTMLElement | null>(null);
@@ -138,11 +180,56 @@ export default defineComponent({
       }
     };
 
+    const featuredPosts = ref([
+      {
+        title: 'Achieve Perfect Life Balance: Your Ultimate Step-by-Step Guide',
+        description: 'Struggling to find life balance? Discover practical steps and tips to juggle your career, relationships, and personal growth with ease.',
+        link: '/blogs/work-life-balance-tips',
+      },
+      {
+        title: 'Boost Your Mental Clarity & Focus with These Simple Tips',
+        description: 'Unlock your mental clarity with actionable mental health tips that enhance focus and reduce stress—your path to a sharper, more productive mind.',
+        link: '/blogs/mental-health-tips',
+      },
+      {
+        title: 'Balance Career Success and Personal Life: Your Guide to Harmony',
+        description: 'Learn how to thrive in your career while maintaining a fulfilling personal life. Achieve career success without burnout with these strategies.',
+        link: '/blogs/boost-your-career-strategies',
+      }
+    ]);
+
+    const title = "Ready for a Happier You? Take the Life Balance Quiz Now!";
+    const description = "Take the Life Balance Quiz to discover how balanced your life is across key areas like joy, health, and relationships. Get personalized insights and actionable steps to enhance your well-being.";
+    const url = "https://life-balance-quiz.shakiltech.com";
+    const image = "https://ui-avatars.com/api/?name=Life+Balance_Quiz&background=007bff&color=ffffff&size=512";
+    const keywords = "mental health, improve mental health, stress management, mindfulness, self-care, mental wellness, mental health tips";
+
     return {
       quizSection,
       scrollToQuiz,
       shareQuiz,
+      featuredPosts,
+      title,
+      description,
+      url,
+      image,
+      keywords,
     };
   },
 });
 </script>
+
+<style>
+/* Shake Animation */
+@keyframes shake {
+  0% { transform: translateX(0); }
+  25% { transform: translateX(-6px); }
+  50% { transform: translateX(6px); }
+  75% { transform: translateX(-6px); }
+  100% { transform: translateX(0); }
+}
+
+.animate-shake {
+  animation: shake 0.7s ease-in-out;
+}
+</style>

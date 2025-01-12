@@ -6,21 +6,7 @@
 
         <title inertia>{{ config('app.name', 'Laravel') }}</title>
 
-        <!-- Meta Description -->
-        <meta name="description" content="Take the Life Balance Quiz to discover how balanced your life is across key areas like joy, health, and relationships. Get personalized insights and actionable steps to enhance your well-being.">
-
-        <!-- Open Graph Tags -->
-        <meta property="og:title" content="Ready for a Happier You? Take the Life Balance Quiz Now!">
-        <meta property="og:description" content="Take the Life Balance Quiz to discover how balanced your life is across key areas like joy, health, and relationships. Get personalized insights and actionable steps to enhance your well-being.">
-        <meta property="og:image" content="https://example.com/path/to/your/image.jpg">
-        <meta property="og:url" content="{{ url()->current() }}">
-        <meta property="og:type" content="website">
-
-        <!-- Twitter Tags -->
-        <meta name="twitter:card" content="summary_large_image">
-        <meta name="twitter:title" content="Ready for a Happier You? Take the Life Balance Quiz Now!">
-        <meta name="twitter:description" content="Take the Life Balance Quiz to discover how balanced your life is across key areas like joy, health, and relationships. Get personalized insights and actionable steps to enhance your well-being.">
-        <meta name="twitter:image" content="https://example.com/path/to/your/image.jpg">
+        <meta property="og:site_name" content="Life Balance Quiz" />
 
         <!-- Manifest File -->
         <link rel="manifest" href="/app.webmanifest">
@@ -96,7 +82,7 @@
                     crossorigin="anonymous"></script>
         @endproduction
     </head>
-    <body class="font-sans antialiased dark:bg-gray-800 dark:text-white">
+    <body class="font-sans antialiased dark:bg-gray-900 dark:text-white">
         @inertia
 
         <script type="text/javascript">

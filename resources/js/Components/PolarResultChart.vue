@@ -1,5 +1,5 @@
 <template>
-  <div class="w-full flex flex-col items-center justify-center">
+  <div class="max-w-2xl mx-auto w-full flex flex-col items-center justify-center">
     <canvas ref="chartRef" class="w-96 h-96"></canvas>
     <div class="mt-4 flex space-x-4">
       <button class="px-4 py-2 bg-blue-500 text-white rounded inline-flex items-center gap-2" @click="saveAsPng">

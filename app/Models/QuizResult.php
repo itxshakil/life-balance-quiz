@@ -13,4 +13,12 @@ class QuizResult extends Model
         'user_agent',
     ];
 
+    public function casts()
+    {
+        return [
+            'answers' => 'json',
+            'results' => 'json',
+        ];
+    }
+
 }
