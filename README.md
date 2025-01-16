@@ -128,6 +128,6 @@ This project is licensed under the MIT License – see the [LICENSE](LICENSE) fi
     - [Balance Career Success and Personal Life: Your Guide to Harmony](https://life-balance-quiz.shakiltech.com/blogs/boost-your-career-strategies)
 
 - **Follow Us**:
-    - Facebook | Twitter | Instagram
+    - [Facebook](https://www.facebook.com/profile.php?id=61571941775943&sk=about) | Twitter | Instagram
 
 ---
